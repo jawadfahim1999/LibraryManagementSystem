@@ -1,0 +1,23 @@
+<%= form_with(model: patron, local: true) do |form| %>
+  <% if patron.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% patron.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :id_number %>
+    <%= form.text_field :id_number, class: 'form-control' %>
+  </div>
+
+  <%= form.submit 'Save', class: 'btn btn-primary' %>
+<% end %>

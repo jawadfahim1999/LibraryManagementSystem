@@ -1,0 +1,9 @@
+<%= render 'shared/navbar' %>
+
+<div class="container mt-4">
+  <h1>New Patron</h1>
+
+  <%= render 'form', patron: @patron %>
+
+  <%= link_to 'Back', patrons_path, class: 'btn btn-secondary mt-3' %>
+</div>

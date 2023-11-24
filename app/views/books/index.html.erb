@@ -1,0 +1,35 @@
+<%= render 'shared/navbar' %>
+
+<div class="container mt-4">
+  <div class="jumbotron">
+    <h1 class="display-4">Library Books</h1>
+    <%= link_to 'Add New Book', new_book_path, class: 'btn btn-primary btn-lg' %>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+        <th>Available</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @books.each do |book| %>
+        <tr>
+          <td><%= book.title %></td>
+          <td><%= book.author %></td>
+          <td><%= book.isbn %></td>
+          <td><%= book.available ? 'Yes' : 'No' %></td>
+          <td>
+            <%= link_to 'Show', book %>
+            <%= link_to 'Edit', edit_book_path(book) %>
+            <%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

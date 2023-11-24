@@ -1,0 +1,37 @@
+<%= render 'shared/navbar' %>
+
+<div class="container mt-4">
+  <div class="jumbotron">
+    <h1 class="display-4">Library Checkouts</h1>
+    <%= link_to 'Add New Checkout', new_checkout_path, class: 'btn btn-primary btn-lg' %>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Book</th>
+        <th>Patron</th>
+        <th>Checked Out At</th>
+        <th>Due Date</th>
+        <th>Returned At</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @checkouts.each do |checkout| %>
+        <tr>
+          <td><%= checkout.book.title %></td>
+          <td><%= checkout.patron.name %></td>
+          <td><%= checkout.checked_out_at %></td>
+          <td><%= checkout.due_date %></td>
+          <td><%= checkout.returned_at %></td>
+          <td>
+            <%= link_to 'Show', checkout %>
+            <%= link_to 'Edit', edit_checkout_path(checkout) %>
+            <%= link_to 'Destroy', checkout, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

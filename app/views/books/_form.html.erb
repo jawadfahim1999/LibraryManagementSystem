@@ -1,0 +1,33 @@
+<%= form_with(model: book, local: true) do |form| %>
+  <% if book.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :author %>
+    <%= form.text_field :author, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :isbn %>
+    <%= form.text_field :isbn, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :available %>
+    <%= form.check_box :available, class: 'form-check-input' %>
+  </div>
+
+  <%= form.submit 'Save', class: 'btn btn-primary' %>
+<% end %>
