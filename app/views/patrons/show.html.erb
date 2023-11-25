@@ -1,0 +1,9 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title"><%= @patron.name %></h1>
+      <p class="card-text">ID Number: <%= @patron.id_number %></p>
+      <%= link_to 'Back to Patrons', patrons_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>

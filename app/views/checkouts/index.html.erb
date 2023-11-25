@@ -3,7 +3,9 @@
 <div class="container mt-4">
   <div class="jumbotron">
     <h1 class="display-4">Library Checkouts</h1>
-    <%= link_to 'Add New Checkout', new_checkout_path, class: 'btn btn-primary btn-lg' %>
+    <% if @can_manage_checkouts %>
+      <%= link_to 'Add New Checkout', new_checkout_path, class: 'btn btn-primary btn-lg' %>
+    <% end %>
   </div>
 
   <table class="table">
@@ -28,7 +30,7 @@
           <td>
             <%= link_to 'Show', checkout %>
             <%= link_to 'Edit', edit_checkout_path(checkout) %>
-            <%= link_to 'Destroy', checkout, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+            <%= link_to 'Delete', checkout, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
           </td>
         </tr>
       <% end %>

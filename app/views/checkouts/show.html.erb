@@ -1,0 +1,11 @@
+<%= render 'shared/navbar' %>
+
+<div class="container mt-4">
+  <div>
+    <h1>Checkout Details</h1>
+    
+    <p>Book: <%= @checkout.book.title %></p>
+    <p>Patron: <%= @checkout.patron.name %></p>
+    <%= link_to 'Back to Checkouts', checkouts_path, class: 'btn btn-primary' %>
+  </div>
+</div>
