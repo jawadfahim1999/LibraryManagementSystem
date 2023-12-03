@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'books#index'
-
-  resources :books do
+  resources :books
+  resources :patrons
+  resources :checkouts do
     member do
-      delete 'destroy'
+      post 'return'
+      post 'complete_return'
     end
   end
-
-  resources :patrons
-  resources :checkouts
 end

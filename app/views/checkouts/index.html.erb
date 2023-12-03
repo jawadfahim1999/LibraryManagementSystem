@@ -3,9 +3,7 @@
 <div class="container mt-4">
   <div class="jumbotron">
     <h1 class="display-4">Library Checkouts</h1>
-    <% if @can_manage_checkouts %>
-      <%= link_to 'Add New Checkout', new_checkout_path, class: 'btn btn-primary btn-lg' %>
-    <% end %>
+    <%= link_to 'Add New Checkout', new_checkout_path, class: 'btn btn-primary btn-lg' %>
   </div>
 
   <table class="table">
@@ -26,11 +24,20 @@
           <td><%= checkout.patron.name %></td>
           <td><%= checkout.checked_out_at %></td>
           <td><%= checkout.due_date %></td>
-          <td><%= checkout.returned_at %></td>
+          <td>
+            <% if checkout.returned_at.present? %>
+              <%= checkout.returned_at %>
+            <% else %>
+              -
+            <% end %>
+          </td>
           <td>
             <%= link_to 'Show', checkout %>
             <%= link_to 'Edit', edit_checkout_path(checkout) %>
             <%= link_to 'Delete', checkout, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+            <% unless checkout.returned_at.present? %>
+              <%= button_to 'Return Book', return_checkout_path(checkout), method: :post, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+            <% end %>
           </td>
         </tr>
       <% end %>

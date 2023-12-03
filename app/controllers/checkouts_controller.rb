@@ -1,5 +1,9 @@
 class CheckoutsController < ApplicationController
   before_action :authenticate_user!
+  
+  def new
+    @checkout = Checkout.new
+  end  
 
   def index
     @checkouts = Checkout.all
@@ -22,7 +26,21 @@ class CheckoutsController < ApplicationController
     end
   end
 
+  def return
+    @checkout = Checkout.find(params[:id])
+  end
 
+  def complete_return
+    @checkout = Checkout.find(params[:id])
+    @checkout.returned_at = params[:checkout][:returned_at]
+
+    if @checkout.save
+      redirect_to checkouts_path, notice: 'Book returned successfully.'
+    else
+      render :return
+    end
+  end
+  
   def edit
     @checkout = Checkout.find(params[:id])
   end
@@ -35,6 +53,13 @@ class CheckoutsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @checkout = Checkout.find(params[:id])
+    @checkout.destroy
+
+    redirect_to checkouts_path, notice: 'Checkout deleted successfully.'
   end
 
   private
