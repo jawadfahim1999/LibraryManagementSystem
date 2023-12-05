@@ -1,0 +1,13 @@
+<h1>Return Book</h1>
+<p>Are you sure you want to return this book?</p>
+
+<%= link_to 'Cancel', checkouts_path, class: 'btn btn-secondary' %>
+
+<%= form_with(model: @checkout, url: complete_return_checkout_path(@checkout), method: :post) do |form| %>
+  <div class="mb-3">
+    <%= form.label :returned_at %>
+    <%= form.datetime_select :returned_at, class: 'form-control' %>
+  </div>
+
+  <%= form.submit 'Return', class: 'btn btn-danger' %>
+<% end %>

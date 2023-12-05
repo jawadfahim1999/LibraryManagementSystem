@@ -24,11 +24,20 @@
           <td><%= checkout.patron.name %></td>
           <td><%= checkout.checked_out_at %></td>
           <td><%= checkout.due_date %></td>
-          <td><%= checkout.returned_at %></td>
+          <td>
+            <% if checkout.returned_at.present? %>
+              <%= checkout.returned_at %>
+            <% else %>
+              -
+            <% end %>
+          </td>
           <td>
             <%= link_to 'Show', checkout %>
             <%= link_to 'Edit', edit_checkout_path(checkout) %>
-            <%= link_to 'Destroy', checkout, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+            <%= link_to 'Delete', checkout, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+            <% unless checkout.returned_at.present? %>
+              <%= button_to 'Return Book', return_checkout_path(checkout), method: :post, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+            <% end %>
           </td>
         </tr>
       <% end %>

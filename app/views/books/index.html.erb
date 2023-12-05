@@ -6,6 +6,21 @@
     <%= link_to 'Add New Book', new_book_path, class: 'btn btn-primary btn-lg' %>
   </div>
 
+  <div class="row mb-4">
+    <div class="col-md-8 offset-md-2">
+      <%= form_tag(books_path, method: :get, class: "form-inline", id: "search-form") do %>
+        <div class="input-group">
+          <%= text_field_tag(:query, params[:query], class: "form-control", placeholder: "Search by title, author, or ISBN") %>
+          <div class="input-group-append">
+            <%= button_tag(type: 'submit', class: 'btn btn-primary') do %>
+              <i class="fa fa-search"></i> Search
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
   <table class="table">
     <thead>
       <tr>
@@ -17,19 +32,39 @@
       </tr>
     </thead>
     <tbody>
-      <% @books.each do |book| %>
+      <% if @books.present? %>
+        <% @books.each do |book| %>
+          <tr>
+            <td><%= book.title %></td>
+            <td><%= book.author %></td>
+            <td><%= book.isbn %></td>
+            <td><%= book.available ? 'Yes' : 'No' %></td>
+            <td>
+              <%= link_to 'Show', book %>
+              <%= link_to 'Edit', edit_book_path(book) %>
+              <%= link_to 'Delete', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
         <tr>
-          <td><%= book.title %></td>
-          <td><%= book.author %></td>
-          <td><%= book.isbn %></td>
-          <td><%= book.available ? 'Yes' : 'No' %></td>
-          <td>
-            <%= link_to 'Show', book %>
-            <%= link_to 'Edit', edit_book_path(book) %>
-            <%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
-          </td>
+          <td colspan="5"><%= flash[:notice] %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchForm = document.getElementById('search-form');
+    if (searchForm) {
+      searchForm.addEventListener('submit', function () {
+        setTimeout(function () {
+          searchForm.reset();
+        }, 0);
+      });
+    }
+  });
+</script>

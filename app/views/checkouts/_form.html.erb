@@ -1,8 +1,8 @@
 <%= form_with(model: checkout, local: true) do |form| %>
-  <% if checkout.errors.any? %>
+  <% if form.object.errors.any? %>
     <div class="alert alert-danger">
       <ul>
-        <% checkout.errors.full_messages.each do |message| %>
+        <% form.object.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -27,11 +27,6 @@
   <div class="mb-3">
     <%= form.label :due_date %>
     <%= form.datetime_select :due_date, class: 'form-control' %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :returned_at %>
-    <%= form.datetime_select :returned_at, class: 'form-control' %>
   </div>
 
   <%= form.submit 'Save', class: 'btn btn-primary' %>
