@@ -1,8 +1,8 @@
 <%= form_with(model: checkout, local: true) do |form| %>
-  <% if form.object.errors.any? %>
+  <% if checkout.errors.any? %>
     <div class="alert alert-danger">
       <ul>
-        <% form.object.errors.full_messages.each do |message| %>
+        <% checkout.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
