@@ -9,4 +9,11 @@ Rails.application.routes.draw do
       post 'complete_return'
     end
   end
+
+  resources :returns, only: [] do
+    member do
+      get 'return'
+      patch 'complete_return'
+    end
+  end
 end

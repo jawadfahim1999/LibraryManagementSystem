@@ -24,13 +24,7 @@
           <td><%= checkout.patron.name %></td>
           <td><%= checkout.checked_out_at %></td>
           <td><%= checkout.due_date %></td>
-          <td>
-            <% if checkout.returned_at.present? %>
-              <%= checkout.returned_at %>
-            <% else %>
-              -
-            <% end %>
-          </td>
+          <td><%= checkout.returned_at.presence || "-" %></td>
           <td>
             <%= link_to 'Show', checkout %>
             <%= link_to 'Edit', edit_checkout_path(checkout) %>

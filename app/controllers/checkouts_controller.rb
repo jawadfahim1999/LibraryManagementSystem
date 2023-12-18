@@ -1,9 +1,6 @@
 class CheckoutsController < ApplicationController
   before_action :authenticate_user!
-  
-  def new
-    @checkout = Checkout.new
-  end  
+  before_action :authorize_user, except: [:index, :show]
 
   def index
     @checkouts = Checkout.all
@@ -26,28 +23,12 @@ class CheckoutsController < ApplicationController
     end
   end
 
-  def return
-    @checkout = Checkout.find(params[:id])
-  end
-
-  def complete_return
-    @checkout = Checkout.find(params[:id])
-    @checkout.returned_at = params[:checkout][:returned_at]
-
-    if @checkout.save
-      redirect_to checkouts_path, notice: 'Book returned successfully.'
-    else
-      render :return
-    end
-  end
-  
   def edit
     @checkout = Checkout.find(params[:id])
   end
 
   def update
     @checkout = Checkout.find(params[:id])
-
     if @checkout.update(checkout_params)
       redirect_to checkouts_path, notice: 'Checkout updated successfully.'
     else
@@ -58,8 +39,13 @@ class CheckoutsController < ApplicationController
   def destroy
     @checkout = Checkout.find(params[:id])
     @checkout.destroy
-
     redirect_to checkouts_path, notice: 'Checkout deleted successfully.'
+  end
+
+  def returns
+    @checkout = Checkout.find(params[:id])
+    # Add logic for returning a checkout if needed
+    redirect_to returns_return_path(@checkout)
   end
 
   private
